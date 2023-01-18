@@ -1,5 +1,6 @@
 package com.objectmentor.utilities.args;
 
+import com.objectmentor.utilities.args.exception.ArgsException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +56,7 @@ public class ArgsTest {
             new Args("f~", new String[]{});
             fail("Args constructor should have throws exception");
         } catch (ArgsException e) {
-            assertEquals(ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT, e.getErrorCode());
+            assertEquals(ArgsException.ErrorCode.INVALID_FORMAT, e.getErrorCode());
             assertEquals('f', e.getErrorArgumentId());
         }
     }
@@ -74,6 +75,8 @@ public class ArgsTest {
         assertTrue(args.has('x'));
         assertEquals("param", args.getString('x'));
     }
+
+    @Test
     public void testMissingStringArgument() throws Exception {
         try {
             new Args("x*", new String[]{"-x"});

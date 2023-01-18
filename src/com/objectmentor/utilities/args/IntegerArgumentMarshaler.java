@@ -1,11 +1,15 @@
 package com.objectmentor.utilities.args;
 
+import com.objectmentor.utilities.args.exception.ArgsException;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static com.objectmentor.utilities.args.ArgsException.ErrorCode.*;
+import static com.objectmentor.utilities.args.exception.ArgsException.ErrorCode.*;
 public class IntegerArgumentMarshaler implements ArgumentMarshaler {
     private int intValue = 0;
+
+    @Override
     public void set(Iterator<String> currentArgument) throws ArgsException {
         String parameter = null;
         try {
@@ -17,10 +21,9 @@ public class IntegerArgumentMarshaler implements ArgumentMarshaler {
             throw new ArgsException(INVALID_INTEGER, parameter);
         }
     }
-    public static int getValue(ArgumentMarshaler am) {
-        if (am != null && am instanceof IntegerArgumentMarshaler)
-            return ((IntegerArgumentMarshaler) am).intValue;
-        else
-            return 0;
+
+    @Override
+    public Object get() {
+        return intValue;
     }
 }

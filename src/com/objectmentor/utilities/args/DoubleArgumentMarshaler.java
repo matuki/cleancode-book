@@ -1,15 +1,28 @@
 package com.objectmentor.utilities.args;
 
+import com.objectmentor.utilities.args.exception.ArgsException;
+
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class DoubleArgumentMarshaler implements ArgumentMarshaler {
-    public static Double getValue(ArgumentMarshaler argumentMarshaler) {
-        return 0.0d;
+    private double doubleValue = 0;
+
+    @Override
+    public void set(Iterator<String> currentArgument) throws ArgsException {
+        String parameter = null;
+        try {
+            parameter = currentArgument.next();
+            doubleValue = Double.parseDouble(parameter);
+        } catch (NoSuchElementException e) {
+            throw new ArgsException(ArgsException.ErrorCode.MISSING_DOUBLE);
+        } catch (NumberFormatException e) {
+            throw new ArgsException(ArgsException.ErrorCode.INVALID_DOUBLE);
+        }
     }
 
     @Override
-    // TODO: Empty implementation
-    public void set(Iterator<String> currentArgument) throws ArgsException {
-
+    public Object get() {
+        return doubleValue;
     }
 }

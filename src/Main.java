@@ -1,5 +1,5 @@
 import com.objectmentor.utilities.args.Args;
-import com.objectmentor.utilities.args.ArgsException;
+import com.objectmentor.utilities.args.exception.ArgsException;
 
 public class Main {
     public static void main(String[] args)   {

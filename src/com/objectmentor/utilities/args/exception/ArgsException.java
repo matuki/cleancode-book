@@ -1,14 +1,13 @@
-package com.objectmentor.utilities.args;
+package com.objectmentor.utilities.args.exception;
 
-import static com.objectmentor.utilities.args.ArgsException.ErrorCode.*;
+import static com.objectmentor.utilities.args.exception.ArgsException.ErrorCode.*;
 
 public class ArgsException extends Exception {
     private char errorArgumentId = '\0';
     private String errorParameter = null;
     private ErrorCode errorCode = OK;
 
-    public ArgsException() {
-    }
+    public ArgsException() {}
 
     public ArgsException(String message) {
         super(message);
@@ -64,13 +63,13 @@ public class ArgsException extends Exception {
                 return String.format("Could not find string parameter for -%c.",
                         errorArgumentId);
             case INVALID_INTEGER:
-                return String.format("Argument -%c expects an integer but was ’%s’.",
+                return String.format("Argument -%c expects an integer but was '%s'.",
                         errorArgumentId, errorParameter);
             case MISSING_INTEGER:
                 return String.format("Could not find integer parameter for -%c.",
                         errorArgumentId);
             case INVALID_DOUBLE:
-                return String.format("Argument -%c expects a double but was ’%s’.",
+                return String.format("Argument -%c expects a double but was '%s'.",
                         errorArgumentId, errorParameter);
             case MISSING_DOUBLE:
                 return String.format("Could not find double parameter for -%c.",
@@ -78,7 +77,7 @@ public class ArgsException extends Exception {
             case INVALID_ARGUMENT_NAME:
                 return String.format("'%c' is not a valid argument name.",
                         errorArgumentId);
-            case INVALID_ARGUMENT_FORMAT:
+            case INVALID_FORMAT:
                 return String.format("'%s' is not a valid argument format.",
                         errorParameter);
         }
@@ -86,7 +85,7 @@ public class ArgsException extends Exception {
     }
 
     public enum ErrorCode {
-        OK, INVALID_ARGUMENT_FORMAT, UNEXPECTED_ARGUMENT, INVALID_ARGUMENT_NAME,
+        OK, INVALID_FORMAT, UNEXPECTED_ARGUMENT, INVALID_ARGUMENT_NAME,
         MISSING_STRING,
         MISSING_INTEGER, INVALID_INTEGER,
         MISSING_DOUBLE, INVALID_DOUBLE
